@@ -16,4 +16,8 @@ public class FunctionServiceImpl implements FunctionService {
     public boolean isActive(Function feature) {
         return ENABLED_FEATURES.contains(feature);
     }
+
+    public static Collection<Function> getEnabledFeatures() {
+        return ENABLED_FEATURES;
+    }
 }

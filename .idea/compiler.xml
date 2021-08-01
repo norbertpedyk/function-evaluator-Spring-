@@ -7,12 +7,16 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="tratif-exercise2" />
+        <module name="project-0" />
+        <module name="v1" />
       </profile>
     </annotationProcessing>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="project-0" options="-parameters" />
       <module name="tratif-exercise2" options="-parameters" />
+      <module name="v1" options="-parameters" />
     </option>
   </component>
 </project>
