@@ -4,9 +4,12 @@ import com.tratif.application.rest.dto.EvaluationResultDto;
 import com.tratif.application.rest.service.SampleEvaluationsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.websocket.server.PathParam;
 
 @RestController
 //TODO: add tests:
@@ -22,9 +25,9 @@ public class SampleEvaluationsController {
         return evaluationsService.sumOfSampleEvaluations();
     }
 
-    @RequestMapping(value = "/api/v1/evaluation/functionName", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/api/v1/evaluation/{functionName:F1|F2|F3}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     //TODO: it should work for function names: "F1", "F2", "F3"
-    public EvaluationResultDto getEvaluation(String functionName) {
+    public EvaluationResultDto getEvaluation(@PathVariable String functionName) {
         return evaluationsService.sampleEvaluation(functionName);
     }
 }
