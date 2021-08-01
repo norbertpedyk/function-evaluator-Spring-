@@ -4,7 +4,6 @@ import com.tratif.application.core.function.service.FunctionServiceImpl;
 import com.tratif.application.core.value.model.Value;
 import com.tratif.application.functions.*;
 import org.springframework.stereotype.Service;
-
 import java.util.Collection;
 
 @Service
@@ -12,8 +11,14 @@ public class ValueEvaluationServiceImpl implements ValueEvaluationService {
 
     private final FunctionServiceImpl functionService;
 
+    private final LruCache<Integer, Value> cache = new LruCache<>(10);
+
     public ValueEvaluationServiceImpl(FunctionServiceImpl functionService) {
         this.functionService = functionService;
+    }
+
+    public LruCache<Integer, Value> getCache() {
+        return cache;
     }
 
     @Override
@@ -27,6 +32,7 @@ public class ValueEvaluationServiceImpl implements ValueEvaluationService {
 
     @Override
     public Integer evaluate(Value value) {
+        cache.set(value.getUniqueId(),value);
         int result;
         if (value instanceof Function1Result) {
             if (functionService.isActive(((Function1Result) value).getFunction())) {
